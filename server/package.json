@@ -1,0 +1,16 @@
+{
+  "name": "cc_server",
+  "version": "1.0.0",
+  "description": "Chinese Chess",
+  "main": "cc_server.js",
+  "scripts": {
+    "start": "node cc_server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://darkranger.no-ip.org",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "websocket": "^1.0.25"
+  }
+}

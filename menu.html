@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="A Chinese chess game made with HTML5">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+const version = "20200423";
+const gamePage = "chinese_chess.html";
+var online = "online";
+var offline = "offline";
+var serverAddress = "localhost:22345"
+
+function offlinePractice() {
+    localStorage.setItem("gameType", offline);
+    window.location.href = gamePage;
+}
+
+function joinServer() {
+    localStorage.setItem("gameType", online);
+    localStorage.setItem("serverAddress", $("#address").val());
+    window.location.href = gamePage;
+}
+
+$(document).ready(function() {
+    $("#version").text(`Ver: ${version}`);
+    $("#address").attr("placeholder", serverAddress);
+
+    if (localStorage.getItem("serverAddress") !== null) {
+        serverAddress = localStorage.getItem("serverAddress");
+    }
+
+    $("#address").val(serverAddress);
+
+    document.getElementById("address").addEventListener("keyup", function(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            joinServer();
+        }
+    });
+}); 
+        </script> 
+        <style type="text/css">
+.container {
+    max-width: 700px;
+}
+        </style>
+        <title>Chinese Chess</title>
+    </head>
+    <body>
+        <div class="container" id="content">
+            <div class="modal" id="joinServer" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <p>Please enter the server address:port</p>
+                            <input id="address" class="w-100" type="text">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="joinServer()">Connect</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3 mt-5">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mx-auto">
+                    <button type="button" class="btn btn-block btn-primary btn-lg" onclick="offlinePractice()">
+                        Offline Practice
+                    </button>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mx-auto">
+                    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#joinServer">
+                        Join a Online Server
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div id="version" class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mx-auto text-center"> </div>
+            </div>
+        </div>
+    </body>
+</html>
